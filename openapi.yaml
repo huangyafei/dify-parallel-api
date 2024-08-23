@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Dify API Processor
+  description: An API to process inputs through multiple Dify API keys
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001
+paths:
+  /run:
+    get:
+      summary: Process input through multiple Dify APIs
+      description: Sends the input to multiple Dify APIs and returns the combined results
+      parameters:
+        - name: input
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The input text to be processed
+        - name: apiKey1
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The first Dify API key
+        - name: apiKey2
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The second Dify API key (optional)
+        - name: apiKey3
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The third Dify API key (optional)
+        - name: apiKey4
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The fourth Dify API key (optional)
+        - name: apiKey5
+          in: query
+          required: false
+          schema:
+            type: string
+          description: The fifth Dify API key (optional)
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: dify
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        workflow_id:
+                          type: string
+                        status:
+                          type: string
+                        text:
+                          type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
